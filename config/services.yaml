@@ -19,6 +19,24 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            
+    App\Service\AuthService:
+        arguments:
+            $userRepository: '@App\Repository\UserRepository'
+            $encoder: '@security.user_password_hasher'
+            $JWTManager: '@lexik_jwt_authentication.jwt_manager'
+    
+    Gedmo\Sluggable\SluggableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    Gedmo\Timestampable\TimestampableListener:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    App\Listeners\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
