@@ -15,9 +15,9 @@ trait Timestamps
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $updatedAt;
 
-    public function getCreatedAt(): DateTimeInterface
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->createdAt->format('Y-m-d H:i:s');
     }
 
     public function setCreatedAt(DateTimeInterface $createdAt): self
@@ -26,9 +26,9 @@ trait Timestamps
         return $this;
     }
 
-    public function getUpdatedAt(): DateTimeInterface
+    public function getUpdatedAt(): string
     {
-        return $this->updatedAt;
+        return $this->updatedAt->format('Y-m-d H:i:s');
     }
 
     public function setUpdatedAt(DateTimeInterface $updatedAt): self

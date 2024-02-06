@@ -6,8 +6,6 @@ use App\DTO\AuthRequestDTO;
 use App\Service\AuthService;
 use App\DTO\RegisterRequestDTO;
 use App\Traits\JsonResponsable;
-use App\Form\AuthRequestFormType;
-use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -19,7 +19,6 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        
         $users = [];
         for ($i = 0; $i < 10; $i++) {
             $user = new User($faker->email, 'password');
@@ -38,7 +37,8 @@ class AppFixtures extends Fixture
             $book->setTitle($faker->sentence)
                  ->setAuthor($faker->name)
                  ->setGenre($faker->word)
-                 ->setPageCount($faker->numberBetween(100, 500));
+                 ->setPageCount($faker->numberBetween(100, 500))
+                 ->setUser($users[$i % count($users)]); // Associate book with a user
 
             $manager->persist($book);
             $books[] = $book;
@@ -48,8 +48,7 @@ class AppFixtures extends Fixture
             if ($index < 5) {
                 for ($j = 0; $j < 5; $j++) {
                     $readingEntry = new ReadingEntry();
-                    $readingEntry->setUser($user)
-                                 ->setBook($books[array_rand($books)])
+                    $readingEntry->setBook($books[array_rand($books)])
                                  ->setPagesRead($faker->numberBetween(1, 500));
 
                     $manager->persist($readingEntry);

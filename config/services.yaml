@@ -19,6 +19,14 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Validators\UniqueUserBookTitleValidator:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $security: '@security.helper'
+        autowire: true
+        autoconfigure: true
+        public: false
             
     App\Service\AuthService:
         arguments:

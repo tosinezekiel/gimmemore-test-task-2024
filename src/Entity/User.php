@@ -47,12 +47,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class)]
     private Collection $reviews;
 
+    #[ORM\OneToMany(mappedBy: 'book', targetEntity: Book::class)]
+    private Collection $books;
+
     public function __construct(string $email, string $password)
     {
         $this->email = $email;
         $this->password = $password;
         $this->readingEntries = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->books = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,6 +128,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        $this->password = null;
+        // $this->password = null;
     }
 }

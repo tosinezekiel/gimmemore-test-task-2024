@@ -6,11 +6,13 @@ use App\Traits\Timestamps;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BookRepository;
+use App\Utils\Status;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: BookRepository::class)]
 #[ORM\Table(name: 'books', indexes: [new Index(name: "idx_title", columns: ["title"]), new Index(name: "idx_author", columns: ["author"]), new Index(name: "idx_slug", columns: ["slug"])])]
 class Book
 {
@@ -37,6 +39,16 @@ class Book
     #[ORM\Column(type: Types::INTEGER)]
     private int $pageCount;
 
+    #[ORM\Column(type: Types::INTEGER)]
+    private int $totalRead = 0;
+
+    #[ORM\Column(type: Types::STRING)]
+    private string $status = Status::FRESH;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'readingEntries')]
+    #[ORM\JoinColumn(nullable: false, name: "user_id", referencedColumnName: "id")]
+    private User $user;
+
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: ReadingEntry::class)]
     private Collection $readingEntries;
 
@@ -47,6 +59,17 @@ class Book
     {
         $this->readingEntries = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+        return $this;
     }
 
     public function getId(): ?int
@@ -111,5 +134,32 @@ class Book
     public function getPageCount(): ?int
     {
         return $this->pageCount;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getTotalRead(): ?int
+    {
+        return $this->totalRead;
+    }
+
+    public function setTotalRead(int $pagesRead): self
+    {
+        $this->totalRead += $pagesRead;
+        return $this;
+    }
+
+    public function belongsTo(User $user): bool
+    {
+        return $this->getUser()->getId() === $user->getId();
     }
 }

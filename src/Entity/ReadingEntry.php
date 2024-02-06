@@ -18,10 +18,6 @@ class ReadingEntry
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'readingEntries')]
-    #[ORM\JoinColumn(nullable: false, name: "user_id", referencedColumnName: "id")]
-    private User $user;
-
     #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'readingEntries')]
     #[ORM\JoinColumn(nullable: false, name: "book_id", referencedColumnName: "id")]
     private Book $book;
@@ -34,21 +30,9 @@ class ReadingEntry
         // Initialize properties if needed
     }
 
-   
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-        return $this;
     }
 
     public function getBook(): Book
