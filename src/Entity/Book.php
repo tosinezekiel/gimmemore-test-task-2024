@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use App\Utils\Status;
 use App\Traits\Timestamps;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Index;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BookRepository;
-use App\Utils\Status;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,6 +17,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Book
 {
     use Timestamps;
+
+    private $entityManager;
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -45,7 +47,7 @@ class Book
     #[ORM\Column(type: Types::STRING)]
     private string $status = Status::FRESH;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'readingEntries')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'books', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false, name: "user_id", referencedColumnName: "id")]
     private User $user;
 

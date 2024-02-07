@@ -49,6 +49,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^7.3",
         "doctrine/doctrine-fixtures-bundle": "*",
         "fakerphp/faker": "*",
         "phpunit/phpunit": "^9.5",
@@ -58,7 +59,8 @@
         "symfony/maker-bundle": "^1.50",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "6.1.*",
-        "symfony/web-profiler-bundle": "6.1.*"
+        "symfony/web-profiler-bundle": "6.1.*",
+        "zenstruck/foundry": "^1.36"
     },
     "config": {
         "allow-plugins": {
