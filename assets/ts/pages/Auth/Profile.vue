@@ -15,7 +15,7 @@
                 </button>
             </div>
         </div>
-        <div v-if="books">
+        <div v-if="books.length">
           <ListBook :title="title" :books="books"/>
         </div>
         <EmptyState v-else/>

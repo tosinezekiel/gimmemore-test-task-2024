@@ -95,7 +95,8 @@ const router = useRouter();
         loading.value = !loading.value;
         BookService.addBook(book.value).then((response) => {
                 loading.value = !loading.value;
-                const book = response.data.data.id;
+                const book = response.data.data;
+                console.log(book);
                 notify({
                     title: response.message,
                     type: 'success',

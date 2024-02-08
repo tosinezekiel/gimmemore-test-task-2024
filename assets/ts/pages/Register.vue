@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-sm mx-auto px-4 py-8">
+    <div class="max-w-sm mx-auto px-4 py-8 mt-20">
         <h1 class="text-3xl text-slate-800 font-bold">Register</h1>
         <span class="font-semibold text-gray-400">We can't wait to have you ;)</span>
         <form>
@@ -120,8 +120,17 @@ const handleSubmit = (isRegister) => {
                     });
                     return;
                 }
-                console.log(error.response.data.data);
-                state.errors = error.response.data.data;
+                if(!error.response.data.data.length){
+                    notify({
+                        title: error.response.data.message,
+                        type: 'error',
+                        position: 'center'
+                    });
+                    return;
+                }
+
+                state.errors = error.response.data.data
+                
         });
   } 
 };

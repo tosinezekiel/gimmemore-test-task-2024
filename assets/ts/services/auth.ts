@@ -29,8 +29,6 @@ class Auth {
           { email, password, password_confirmation, last_name, first_name })
           .then((response) => {
             let res = response.data;
-            console.log(res);
-            return;
             if (res.data.token) {
                 TokenService.setUser(res.data.user);
                 TokenService.updateLocalAccessToken(res.data.token);

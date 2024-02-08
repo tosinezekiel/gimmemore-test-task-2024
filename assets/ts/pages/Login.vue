@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-sm mx-auto px-4 py-8">
+    <div class="max-w-sm mx-auto px-4 py-8 mt-40">
         <h1 class="text-3xl text-slate-800 font-bold">Login! ✨</h1>
         <span class="font-semibold text-gray-400">So nice to see you again ;)</span>
         <form>
