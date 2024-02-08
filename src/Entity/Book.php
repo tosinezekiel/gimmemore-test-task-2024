@@ -164,4 +164,14 @@ class Book
     {
         return $this->getUser()->getId() === $user->getId();
     }
+
+    public function getReadingEntries()
+    {
+        return $this->readingEntries;
+    }
+
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
 }

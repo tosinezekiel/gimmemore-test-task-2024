@@ -33,6 +33,7 @@ services:
             $userRepository: '@App\Repository\UserRepository'
             $encoder: '@security.user_password_hasher'
             $JWTManager: '@lexik_jwt_authentication.jwt_manager'
+            # $userService: '@lexik_jwt_authentication.jwt_manager'
     
     Gedmo\Sluggable\SluggableListener:
         tags:

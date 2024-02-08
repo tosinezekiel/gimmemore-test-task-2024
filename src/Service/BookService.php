@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class BookService
 {
+    private const LIMIT = 5;
+
     public function __construct(
         private BookRepository $bookRepository, 
         private EntityManagerInterface $entityManager
@@ -18,7 +20,36 @@ class BookService
 
     public function getBooks(User $user) 
     {
-        return BookTransformer::transformAll($this->bookRepository->findBy(['user' => $user]));
+        return BookTransformer::transformAll($this->bookRepository->findBy(
+            ['user' => $user],
+            ['createdAt' => 'DESC']
+        ));
+    }
+
+    public function getLatestBooks(User $user) 
+    {
+        return BookTransformer::transformAll($this->bookRepository->findBy(
+            ['user' => $user],
+            ['createdAt' => 'DESC'],
+            self::LIMIT
+        ));
+    }
+
+    public function getUserTotalBooks(User $user) 
+    {
+        return $this->bookRepository->countBooksByUser($user);
+    }
+
+    public function getUserTotalReadInMonth(User $user){
+        return $this->bookRepository->getTotalReadsByMonth($user);
+    }
+
+    public function getUserTotalReadInYear(User $user){
+        return $this->bookRepository->getTotalReadsByYear($user);
+    }
+
+    public function getUserLastReadDay(User $user){
+        return $this->bookRepository->findDayOfLastEntryForMostRecentBook($user);
     }
 
     public function getBook(User $user, Book $book) 

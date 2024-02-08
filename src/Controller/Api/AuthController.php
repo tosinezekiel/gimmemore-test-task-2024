@@ -5,7 +5,9 @@ namespace App\Controller\Api;
 use App\DTO\AuthRequestDTO;
 use App\Service\AuthService;
 use App\DTO\RegisterRequestDTO;
+use App\Service\UserService;
 use App\Traits\JsonResponsable;
+use App\Transformers\UserTransformer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +20,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class AuthController extends AbstractController {
     use JsonResponsable;
 
-    public function __construct(private AuthService $authService, private SerializerInterface $serializer, private ValidatorInterface $validator)
+    public function __construct(private AuthService $authService, private SerializerInterface $serializer, private ValidatorInterface $validator, private UserService $userService)
     {}
 
     #[Route('/api/register', methods: ['POST'])]
@@ -34,7 +36,9 @@ class AuthController extends AbstractController {
 
         $token = $this->authService->registerAndSign($dto);
 
-        return $this->jsonSuccessResponse('User registered successfully', ['token' => $token]);
+        $user = UserTransformer::transform($this->userService->getUserByEmail($dto->email));
+
+        return $this->jsonSuccessResponse('User registered successfully', ['token' => $token, 'user' => $user]);
     }
 
     #[Route('/api/login', methods: ['POST'])]
@@ -53,7 +57,9 @@ class AuthController extends AbstractController {
             $dto->password
         );
 
-        return $this->jsonSuccessResponse('Login successful', ['token' => $token]);
+        $user = UserTransformer::transform($this->userService->getUserByEmail($dto->email));
+
+        return $this->jsonSuccessResponse('Login successful', ['token' => $token, 'user' => $user]);
     }
 
     #[Route('/logout', methods: ['POST'])]

@@ -19,7 +19,7 @@ class UserService
     )
     {}
     
-    public function getProfile(User $user)
+    public function getProfile(User $user): array
     {
         $completedBooks = $this->bookRepository->findBy(['user' => $user, 'status' => Status::COMPLETED]);
 
@@ -30,5 +30,10 @@ class UserService
             'in_progress_books' => BookTransformer::transformAll($inProgressBooks),
             'user' => UserTransformer::transform($user)
         ];
+    }
+
+    public function getUserByEmail(string $email): User
+    {
+        return $this->userRepository->findOneBy(['email' => $email]);
     }
 }

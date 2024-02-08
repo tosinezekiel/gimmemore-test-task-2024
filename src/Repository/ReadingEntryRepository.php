@@ -2,7 +2,10 @@
 
 namespace App\Repository;
 
+use DateTime;
+use App\Entity\User;
 use App\Entity\ReadingEntry;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -20,6 +23,39 @@ class ReadingEntryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ReadingEntry::class);
     }
+
+    public function findMonthlyReadingStatsForCurrentUser(User $user)
+    {
+        $em = $this->getEntityManager();
+        $currentMonth = (new \DateTime())->format('m');
+        $currentYear = (new \DateTime())->format('Y');
+    
+        $qb = $em->createQueryBuilder();
+        $qb->select('SUM(re.pagesRead) as totalPages')
+           ->from('App\Entity\ReadingEntry', 're')
+           ->join('App\Entity\Book', 'b', \Doctrine\ORM\Query\Expr\Join::WITH, 're.book = b.id')
+           ->where('b.user = :userId')
+           ->andWhere($qb->expr()->andX(
+               $qb->expr()->eq($qb->expr()->substring('re.createdAt', 1, 4), ':year'),
+               $qb->expr()->eq($qb->expr()->substring('re.createdAt', 6, 2), ':month')
+           ))
+           ->setParameter('userId', $user->getId())
+           ->setParameter('year', $currentYear)
+           ->setParameter('month', $currentMonth);
+    
+        $result = $qb->getQuery()->getSingleScalarResult();
+    
+        return (int)$result; 
+    }
+    
+
+
+
+
+
+    
+
+
 
 //    /**
 //     * @return ReadingEntry[] Returns an array of ReadingEntry objects

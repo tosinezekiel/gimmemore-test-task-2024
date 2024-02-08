@@ -42,6 +42,7 @@ class ReadingEntryService
         }, $entries));
 
         $book->setTotalRead($entry->getPagesRead());
+        $book->setStatus(Status::IN_PROGRESS); 
         $this->entityManager->flush();
 
         if ($totalPagesRead >= $book->getPageCount()) {
@@ -50,6 +51,10 @@ class ReadingEntryService
         }
 
         return $this->bookService->fetchBookByUser($user, $book);
+    }
+
+    public function getUserReadingStat(User $user){
+        return $this->readingEntryRepository->findMonthlyReadingStatsForCurrentUser($user);
     }
     
 }

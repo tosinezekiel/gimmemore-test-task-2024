@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "esnext",
+      "strict": true,
+      "jsx": "preserve",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "sourceMap": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["assets/*"]
+      },
+      "lib": ["esnext", "dom"],
+      "skipLibCheck": true
+    },
+    "include": [
+      "assets/ts/**/*.ts",
+      "assets/**/*.vue"
+    ],
+    "exclude": ["node_modules"]
+  }
+  
