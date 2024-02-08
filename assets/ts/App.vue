@@ -25,5 +25,4 @@
         return store.getters['auth/isLoggedIn']
     })
 
-    console.log(isLoggedIn);
 </script>

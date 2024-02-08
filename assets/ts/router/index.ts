@@ -24,11 +24,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['Login', 'Register']; // Include 'PageNotFound' to allow access to the 404 page
-  const authRequired = !publicPages.includes(to.name); // Check if auth is required for the current route
-  const loggedIn = store.getters['auth/isLoggedIn']; // Check if user is logged in
+  const publicPages: string[] = ['Login', 'Register']; 
+  const authRequired = !publicPages.includes(to.name as string);
+  const loggedIn = store.getters['auth/isLoggedIn']; 
 
-  if (loggedIn && publicPages.includes(to.name)) {
+  if (loggedIn && publicPages.includes(to.name as string)) {
       next({ name: 'Dashboard' });
       return;
   }
@@ -38,7 +38,6 @@ router.beforeEach((to, from, next) => {
       return;
   }
 
-  // Otherwise proceed as normal
   next();
 });
 

@@ -36,7 +36,6 @@
     
     const toggleModal = () => {
         showAddBookModal.value = !showAddBookModal.value;
-        console.log("Modal state:", showAddBookModal.value);
     };
 
     const fetchBooks = async () => {

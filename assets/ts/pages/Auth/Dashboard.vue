@@ -29,14 +29,14 @@
                 </div>
 
                 <div class="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
-                  <p class="text-sm font-medium leading-6 text-gray-400">Book read this month</p>
+                  <p class="text-sm font-medium leading-6 text-gray-400">No of reading this month</p>
                   <p class="mt-2 flex items-baseline gap-x-2">
                       <span class="text-4xl font-semibold tracking-tight text-white">{{ totalReadInMonth }}</span>
                   </p>
                 </div>
 
                 <div class="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
-                  <p class="text-sm font-medium leading-6 text-gray-400">Book read this year</p>
+                  <p class="text-sm font-medium leading-6 text-gray-400">No of reading this year</p>
                   <p class="mt-2 flex items-baseline gap-x-2">
                       <span class="text-4xl font-semibold tracking-tight text-white">40</span>
                   </p>

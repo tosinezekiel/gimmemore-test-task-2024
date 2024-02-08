@@ -60,7 +60,7 @@ export const auth = {
       commit('logout');
     },
     fetchUser({ commit }: ActionContext<IState, any>, userId: number) {
-      return UserService.getUser(userId).then(
+      return UserService.profile().then(
         (user: IAuthUser) => {
           commit('loginSuccess', { user });
           return Promise.resolve(user);
