@@ -4,6 +4,10 @@
 
 This service is akin to a book club platform, enabling authenticated users to add books they are reading, track their reading progress with updates, and share their thoughts through reviews upon completion. The user's profile showcases current progress and a history of read books, enhancing the reading experience with social sharing capabilities.
 
+## Preview
+[Preview App](https://recordit.co/ZGYOtkvtRo)
+
+
 ### Features
 
 - User registration and login functionality.
