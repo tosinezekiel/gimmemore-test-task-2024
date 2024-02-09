@@ -1,4 +1,5 @@
 <template>
+    <AddBook :isVisible="showAddBookModal" @update:isVisible="showAddBookModal = $event" />
     <div class="max-w-7xl mx-auto" v-if="loading">
       <div class="text-center mt-16"><i>Loading...</i></div>
     </div>
@@ -24,6 +25,7 @@
 <script setup>
     import { computed, ref, onMounted } from "vue"
     import EmptyState from '@/ts/components/EmptyState.vue';
+    import AddBook from '@/ts/components/modals/AddBook.vue';
     import ListBook from '@/ts/components/ListBook.vue';
     import UserService from "@/ts/services/user";
     import TokenService from "@/ts/services/token";
